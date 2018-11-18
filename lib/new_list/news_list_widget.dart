@@ -19,19 +19,27 @@ class NewsListState extends State<NewsList> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Article>>(
-      builder: _buildArticlesList,
+      builder: _buildContent,
       future: _articles,
     );
   }
 
-  Widget _buildArticlesList(
-      BuildContext context, AsyncSnapshot<List<Article>> snapShot) {
+  Widget _buildContent(
+    BuildContext context,
+    AsyncSnapshot<List<Article>> snapShot,
+  ) {
     if (snapShot.hasData) {
-      return Text(snapShot.data.length.toString());
+      return _buildNewsList(snapShot.data);
     } else if (snapShot.hasError) {
       return Text(snapShot.error.toString());
+    } else {
+      return CircularProgressIndicator();
     }
+  }
 
-    return CircularProgressIndicator();
+  Widget _buildNewsList(List<Article> articles) {
+    return ListView(
+      children: articles.map<Widget>((article) => Text(article.title)).toList(),
+    );
   }
 }
