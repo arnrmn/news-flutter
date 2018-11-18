@@ -8,19 +8,16 @@ class NewsList extends StatefulWidget {
 }
 
 class NewsListState extends State<NewsList> {
-  Future<List<Article>> _articles;
-
-  @override
-  void initState() {
-    super.initState();
-    _articles = NewsApi.fetchArticles();
-  }
+  List<Article> _articles = List<Article>();
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Article>>(
-      builder: _buildContent,
-      future: _articles,
+    return RefreshIndicator(
+      child: ListView(
+        physics: AlwaysScrollableScrollPhysics(),
+        children: <Widget>[Text("Something")],
+      ),
+      onRefresh: fetchData,
     );
   }
 
@@ -29,7 +26,7 @@ class NewsListState extends State<NewsList> {
     AsyncSnapshot<List<Article>> snapShot,
   ) {
     if (snapShot.hasData) {
-      return _buildNewsList(snapShot.data);
+      return _buildNewsList(_articles);
     } else if (snapShot.hasError) {
       return Text(snapShot.error.toString());
     } else {
@@ -38,8 +35,16 @@ class NewsListState extends State<NewsList> {
   }
 
   Widget _buildNewsList(List<Article> articles) {
-    return ListView(
-      children: articles.map<Widget>((article) => Text(article.title)).toList(),
+    return RefreshIndicator(
+      onRefresh: fetchData,
+      child: ListView(
+        children:
+            articles.map<Widget>((article) => Text(article.title)).toList(),
+      ),
     );
+  }
+
+  Future<void> fetchData() async {
+    return await NewsApi.fetchArticles();
   }
 }
