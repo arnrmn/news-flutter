@@ -2,13 +2,15 @@ class Article {
   String title;
   String description;
   String imageUrl;
+  String url;
+  String publishTime;
+  String content;
 
-  Article({this.title, this.description, this.imageUrl});
-
-  factory Article.fromJson(Map<String, dynamic> json) {
-    return Article(
-        title: json['title'],
-        description: json['description'],
-        imageUrl: json['urlToImage']);
-  }
+  Article(
+      {this.title,
+      this.description,
+      this.imageUrl,
+      this.url,
+      this.content,
+      this.publishTime});
 }

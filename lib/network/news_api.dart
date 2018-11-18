@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'package:news_app/article.dart';
-import 'dart:convert';
+import 'package:news_app/network/article_mapper.dart';
 
 class NewsApi {
   static const _BASE_URL = "https://newsapi.org/v2/top-headlines?"
@@ -8,12 +8,8 @@ class NewsApi {
 
   Future<List<Article>> fetchArticles() async {
     final response = await http.get(_BASE_URL);
-
     if (response.statusCode == 200) {
-      return json
-          .decode(response.body)['articles']
-          .map<Article>((json) => Article.fromJson(json))
-          .toList();
+      return ArticleMapper.map(response);
     } else {
       throw Exception("Network error: ${response.statusCode.toString()}");
     }
