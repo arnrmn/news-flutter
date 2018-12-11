@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/main_screen/news_drawer.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -8,77 +9,38 @@ class MainScreen extends StatefulWidget {
 }
 
 class MainScreenState extends State<MainScreen> {
-  int _selectedItem = 0;
+  int _selectedPosition = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("News")),
-      body: _body(_selectedItem),
-      drawer: _drawer(context),
+      body: _getBody(_selectedPosition),
+      drawer: NewsDrawer(
+        onSelected: _onNavigationItemSelected,
+        items: _getNavigationItems(),
+        selectedPosition: _selectedPosition,
+      ),
     );
   }
 
-  Widget _body(int position) {
-    switch (position) {
-      case 0:
-        return Center(
-          child: Text("Explore"),
-        );
-      default:
-        return Center(
-          child: Text("Favorite"),
-        );
+  Widget _getBody(int position) {
+    return Text("Selected position: $position");
+  }
+
+  List<NavigationItem> _getNavigationItems() {
+    return [
+      NavigationItem("Explore", Icons.explore),
+      NavigationItem("Favorites", Icons.favorite)
+    ];
+  }
+
+  void _onNavigationItemSelected(int position) {
+    Navigator.pop(context);
+    if (_selectedPosition != position) {
+      setState(() {
+        _selectedPosition = position;
+      });
     }
-  }
-
-  Drawer _drawer(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          _drawerHeader(),
-          _exploreItem(context),
-          _favoritesItem(context)
-        ],
-      ),
-    );
-  }
-
-  ListTile _favoritesItem(BuildContext context) {
-    return ListTile(
-      title: Text("favorites"),
-      leading: Icon(Icons.favorite),
-      selected: _selectedItem == 1,
-      onTap: () {
-        setState(() {
-          _selectedItem = 1;
-        });
-        Navigator.pop(context);
-      },
-    );
-  }
-
-  ListTile _exploreItem(BuildContext context) {
-    return ListTile(
-      title: Text("explore"),
-      leading: Icon(Icons.explore),
-      selected: _selectedItem == 0,
-      onTap: () {
-        setState(() {
-          _selectedItem = 0;
-        });
-        Navigator.pop(context);
-      },
-    );
-  }
-
-  ListTile _drawerHeader() {
-    return ListTile(
-      title: AspectRatio(
-        aspectRatio: 16 / 9,
-        child: Image(image: AssetImage('assets/image_android.png')),
-      ),
-    );
   }
 }
