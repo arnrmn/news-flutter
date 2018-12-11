@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/main_screen/navigation_item.dart';
 
 class NewsDrawer extends StatelessWidget {
-  final Function(int) _onSelected;
+  final Function(NavigationItem) _onSelected;
   final List<NavigationItem> _items;
   final int _selectedPosition;
 
-  NewsDrawer({onSelected, items, selectedPosition})
+  NewsDrawer({onSelected, items, selectedItem})
       : _onSelected = onSelected,
         _items = items,
-        _selectedPosition = selectedPosition;
+        _selectedPosition = items.indexOf(selectedItem);
 
   @override
   Widget build(BuildContext context) {
@@ -41,18 +42,11 @@ class NewsDrawer extends StatelessWidget {
   Widget _buildItem(int position) {
     NavigationItem item = _items[position];
     return ListTile(
-        title: Text(item.name),
+        title: Text(item.title),
         leading: Icon(item.icon),
         selected: _selectedPosition == position,
         onTap: () {
-          _onSelected(position);
+          _onSelected(item);
         });
   }
-}
-
-class NavigationItem {
-  final String name;
-  final IconData icon;
-
-  NavigationItem(this.name, this.icon);
 }
