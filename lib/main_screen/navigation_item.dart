@@ -4,5 +4,10 @@ class NavigationItem {
   final String title;
   final IconData icon;
 
-  NavigationItem(this.title, this.icon);
+  const NavigationItem(this.title, this.icon);
+
+  static const NavigationItem EXPLORE =
+      NavigationItem("Explore", Icons.explore);
+  static const NavigationItem FAVORITE =
+      NavigationItem("Favorites", Icons.favorite);
 }
