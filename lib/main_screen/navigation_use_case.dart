@@ -8,6 +8,6 @@ class NavigationUseCase {
   ];
 
   Future<List<NavigationItem>> getNavigation() {
-    return Future.delayed(Duration(seconds: 5), () => _navigation);
+    return Future.value(_navigation);
   }
 }

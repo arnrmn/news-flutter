@@ -21,15 +21,6 @@ class MainPresenter extends Presenter {
   }
 
   void _getNavigation() {
-    _view.setLoading();
-    _useCase
-        .getNavigation()
-        .then(_view.setNavigation)
-        .catchError(_view.setError);
-  }
-
-  @override
-  void onRetryRequested() {
-    _getNavigation();
+    _useCase.getNavigation().then(_view.setNavigation);
   }
 }

@@ -14,8 +14,6 @@ class MainScreenState extends State<MainScreen> implements View {
   Presenter _presenter;
   List<NavigationItem> _navigation;
   NavigationItem _selectedItem;
-  String _error;
-  bool _isLoading = false;
 
   MainScreenState() {
     _presenter = MainPresenter(this, NavigationUseCase());
@@ -49,42 +47,13 @@ class MainScreenState extends State<MainScreen> implements View {
   @override
   void setNavigation(List<NavigationItem> items) {
     setState(() {
-      _isLoading = false;
-      _error = null;
       _navigation = items;
       _selectedItem = items.first;
     });
   }
 
-  @override
-  void setError(String error) {
-    setState(() {
-      _error = error;
-      _isLoading = false;
-    });
-  }
-
-  @override
-  void setLoading() {
-    setState(() {
-      _isLoading = true;
-      _error = null;
-    });
-  }
-
   Widget _getBody() {
-    if (_error != null) {
-      Scaffold.of(context).showSnackBar(SnackBar(content: Text(_error)));
-      return Center(
-          child: MaterialButton(
-        onPressed: _presenter.onRetryRequested,
-        child: Icon(Icons.refresh),
-      ));
-    }
-
-    if (_isLoading) {
-      return Center(child: CircularProgressIndicator());
-    } else if (_selectedItem != null) {
+    if (_selectedItem != null) {
       return Center(child: Text(_selectedItem.title));
     } else {
       return null;
