@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/main_screen/navigation_item.dart';
 import 'package:news_app/main_screen/news_drawer.dart';
+import 'package:news_app/sources/sources_screen.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -26,7 +27,11 @@ class MainScreenState extends State<MainScreen> {
   }
 
   Widget _getBody() {
-    return Center(child: Text(_selectedItem.title));
+    if (_selectedItem == NavigationItem.EXPLORE) {
+      return SourcesScreen();
+    } else {
+      return Center(child: Text(_selectedItem.title));
+    }
   }
 
   Widget _getDrawer() {
