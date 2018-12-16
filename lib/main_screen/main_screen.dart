@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/main_screen/navigation_item.dart';
 import 'package:news_app/main_screen/news_drawer.dart';
-import 'package:news_app/sources/sources_screen.dart';
+import 'package:news_app/sources_screen/sources_screen.dart';
 
 class MainScreen extends StatefulWidget {
   @override
-  State createState() => MainScreenState();
+  State createState() => _MainScreenState();
 }
 
-class MainScreenState extends State<MainScreen> {
+class _MainScreenState extends State<MainScreen> {
   List<NavigationItem> _navigation;
   NavigationItem _selectedItem;
 
-  MainScreenState() {
+  _MainScreenState() {
     _navigation = [NavigationItem.EXPLORE, NavigationItem.FAVORITE];
     _selectedItem = _navigation.first;
   }
