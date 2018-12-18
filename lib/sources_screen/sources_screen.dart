@@ -58,11 +58,8 @@ class _SourcesScreenState extends State<SourcesScreen> {
       expandedHeight: 200,
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(
-        title: Text("Explore"),
-        background: Image.asset(
-          "assets/image_android.png",
-          fit: BoxFit.cover,
-        ),
+        collapseMode: CollapseMode.parallax,
+        background: FlutterLogo(),
       ),
     );
   }
