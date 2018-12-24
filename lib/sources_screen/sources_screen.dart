@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/loading/loading_screen.dart';
+import 'package:news_app/new_list/news_list.dart';
 import 'package:news_app/sources_screen/source.dart';
 import 'package:news_app/sources_screen/sources_use_case.dart';
 
@@ -43,9 +44,7 @@ class _LoadedSourcesScreen extends StatelessWidget {
 
   Widget _getBody() {
     return TabBarView(
-        children: _sources
-            .map((source) => Center(child: Text(source.name)))
-            .toList());
+        children: _sources.map((source) => NewsList(source)).toList());
   }
 
   List<Widget> _getHeaderBuilder(context, isScroller) {
