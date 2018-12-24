@@ -1,3 +1,3 @@
 class SourcesStorage {
-
+  const SourcesStorage();
 }

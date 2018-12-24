@@ -8,7 +8,7 @@ class NewsApi {
   static const _KEY = "57a79eac5a8f44efa2bd3408139b83f3";
   static const _BASE_URL = "https://newsapi.org/v2";
 
-  _NewsApi() {}
+  const NewsApi();
 
   static Future<List<Article>> getArticles(Source source, int page) async {
     final url =

@@ -1,7 +1,10 @@
+import 'package:news_app/network/news_api.dart';
 import 'package:news_app/sources_screen/source.dart';
 
 class SourcesService {
-  Future<List<Source>> getSources() {
+  const SourcesService();
 
+  Future<List<Source>> getSources() {
+    return NewsApi.getSources();
   }
 }

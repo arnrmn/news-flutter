@@ -6,9 +6,13 @@ class SourcesUseCase {
   final SourcesStorage _storage;
   final SourcesService _service;
 
-  SourcesUseCase(this._storage, this._service);
+  const SourcesUseCase({
+    storage: const SourcesStorage(),
+    service: const SourcesService(),
+  })  : _service = service,
+        _storage = storage;
 
   Future<List<Source>> getSources() {
-
+    return _service.getSources();
   }
 }
