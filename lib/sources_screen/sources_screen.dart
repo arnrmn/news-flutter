@@ -20,7 +20,12 @@ class _SourcesScreenState extends State<SourcesScreen> {
   }
 
   Widget _getBody() {
-    return Center(child: Text("Body"));
+    return TabBarView(
+      children: <Widget>[
+        Center(child: Text("ONE")),
+        Center(child: Text("TWO")),
+      ],
+    );
   }
 
   List<Widget> _getHeaderBuilder(context, isScroller) {
@@ -41,14 +46,8 @@ class _SourcesScreenState extends State<SourcesScreen> {
     return TabBar(
       labelColor: Colors.black87,
       tabs: [
-        Tab(
-          text: "Tab One",
-          icon: Icon(Icons.attachment),
-        ),
-        Tab(
-          text: "Tab Two",
-          icon: Icon(Icons.add_alarm),
-        )
+        Tab(text: "Tab One"),
+        Tab(text: "Tab Two"),
       ],
     );
   }

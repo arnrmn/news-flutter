@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/article.dart';
-import 'package:news_app/network/news_api.dart';
 
 class NewsList extends StatefulWidget {
   @override
@@ -45,6 +44,6 @@ class NewsListState extends State<NewsList> {
   }
 
   Future<void> fetchData() async {
-    return await NewsApi.fetchArticles();
+    return Future.value();
   }
 }
