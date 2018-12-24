@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/articles_list/articles_list.dart';
 import 'package:news_app/loading/loading_screen.dart';
-import 'package:news_app/new_list/news_list.dart';
 import 'package:news_app/sources_screen/source.dart';
 import 'package:news_app/sources_screen/sources_use_case.dart';
 
@@ -11,11 +11,9 @@ class SourcesScreen extends StatelessWidget {
       future: SourcesUseCase().getSources(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return _LoadedSourcesScreen(snapshot.data);
+          return _SourcesScreen(snapshot.data);
         } else if (snapshot.hasError) {
-          return Scaffold(
-            body: Center(child: Text("Error: ${snapshot.error.toString()}")),
-          );
+          return Scaffold(body: Center(child: Text("Error: ${snapshot.error.toString()}")));
         } else {
           return LoadingScreen();
         }
@@ -24,10 +22,10 @@ class SourcesScreen extends StatelessWidget {
   }
 }
 
-class _LoadedSourcesScreen extends StatelessWidget {
+class _SourcesScreen extends StatelessWidget {
   final List<Source> _sources;
 
-  _LoadedSourcesScreen(sources) : this._sources = sources;
+  _SourcesScreen(sources) : this._sources = sources;
 
   @override
   Widget build(BuildContext context) {
@@ -42,43 +40,33 @@ class _LoadedSourcesScreen extends StatelessWidget {
     );
   }
 
-  Widget _getBody() {
-    return TabBarView(
-        children: _sources.map((source) => NewsList(source)).toList());
-  }
+  Widget _getBody() =>
+      TabBarView(children: _sources.map((source) => ArticlesList(source)).toList());
 
-  List<Widget> _getHeaderBuilder(context, isScroller) {
-    return [
-      _getToolbar(),
-      _getTabBarLayout(),
-    ];
-  }
+  List<Widget> _getHeaderBuilder(context, isScroller) => [
+        _getToolbar(),
+        _getTabBarLayout(),
+      ];
 
-  Widget _getTabBarLayout() {
-    return SliverPersistentHeader(
-      pinned: true,
-      delegate: _SliverTabBarDelegate(_getTabBar()),
-    );
-  }
+  Widget _getTabBarLayout() => SliverPersistentHeader(
+        pinned: true,
+        delegate: _SliverTabBarDelegate(_getTabBar()),
+      );
 
-  Widget _getTabBar() {
-    return TabBar(
-      isScrollable: true,
-      labelColor: Colors.black87,
-      tabs: _sources.map((source) => Tab(text: source.name)).toList(),
-    );
-  }
+  Widget _getTabBar() => TabBar(
+        isScrollable: true,
+        labelColor: Colors.black87,
+        tabs: _sources.map((source) => Tab(text: source.name)).toList(),
+      );
 
-  Widget _getToolbar() {
-    return SliverAppBar(
-      expandedHeight: 200,
-      pinned: true,
-      flexibleSpace: FlexibleSpaceBar(
-        collapseMode: CollapseMode.parallax,
-        background: FlutterLogo(),
-      ),
-    );
-  }
+  Widget _getToolbar() => SliverAppBar(
+        expandedHeight: 200,
+        pinned: true,
+        flexibleSpace: FlexibleSpaceBar(
+          collapseMode: CollapseMode.parallax,
+          background: FlutterLogo(),
+        ),
+      );
 }
 
 class _SliverTabBarDelegate extends SliverPersistentHeaderDelegate {

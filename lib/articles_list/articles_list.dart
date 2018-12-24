@@ -4,10 +4,10 @@ import 'package:news_app/loading/loading_screen.dart';
 import 'package:news_app/network/news_api.dart';
 import 'package:news_app/sources_screen/source.dart';
 
-class NewsList extends StatelessWidget {
+class ArticlesList extends StatelessWidget {
   final Source _source;
 
-  const NewsList(source) : _source = source;
+  const ArticlesList(source) : _source = source;
 
   @override
   Widget build(BuildContext context) {
