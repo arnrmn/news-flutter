@@ -1,49 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/loading/loading_screen.dart';
 import 'package:news_app/sources_screen/source.dart';
 import 'package:news_app/sources_screen/sources_use_case.dart';
 
-class SourcesScreen extends StatefulWidget {
+class SourcesScreen extends StatelessWidget {
   @override
-  State createState() => _SourcesScreenState();
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<Source>>(
+      future: SourcesUseCase().getSources(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return _LoadedSourcesScreen(snapshot.data);
+        } else if (snapshot.hasError) {
+          return Scaffold(
+            body: Center(child: Text("Error: ${snapshot.error.toString()}")),
+          );
+        } else {
+          return LoadingScreen();
+        }
+      },
+    );
+  }
 }
 
-class _SourcesScreenState extends State<SourcesScreen>
-    with SingleTickerProviderStateMixin {
-  TabController _tabController;
-  List<Source> _sources = [];
-  final SourcesUseCase _useCase = SourcesUseCase();
+class _LoadedSourcesScreen extends StatelessWidget {
+  final List<Source> _sources;
 
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 0, vsync: this);
-    _useCase.getSources().then((sources) {
-      setState(() {
-        _sources = sources;
-        _tabController = TabController(length: _sources.length, vsync: this);
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
+  _LoadedSourcesScreen(sources) : this._sources = sources;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: _getHeaderBuilder,
-        body: _getBody(),
+    return DefaultTabController(
+      length: _sources.length,
+      child: Scaffold(
+        body: NestedScrollView(
+          headerSliverBuilder: _getHeaderBuilder,
+          body: _getBody(),
+        ),
       ),
     );
   }
 
   Widget _getBody() {
     return TabBarView(
-        controller: _tabController,
         children: _sources
             .map((source) => Center(child: Text(source.name)))
             .toList());
@@ -65,7 +64,6 @@ class _SourcesScreenState extends State<SourcesScreen>
 
   Widget _getTabBar() {
     return TabBar(
-      controller: _tabController,
       isScrollable: true,
       labelColor: Colors.black87,
       tabs: _sources.map((source) => Tab(text: source.name)).toList(),

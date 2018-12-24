@@ -11,7 +11,7 @@ class NewsApplication extends StatelessWidget {
     return MaterialApp(
       title: 'News',
       theme: ThemeData(primarySwatch: Colors.indigo),
-      home: LoadingScreen(),
+      home: SourcesScreen(),
     );
   }
 }
