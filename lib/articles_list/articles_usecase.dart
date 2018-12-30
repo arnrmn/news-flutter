@@ -8,16 +8,18 @@ class ArticlesUseCase {
   final Cache<List<Article>> _storage;
   final ArticlesService _service;
 
-  ArticlesUseCase({Cache<List<Article>> storage, ArticlesService service})
-      : _storage = storage ?? ArticlesStorage(),
+  ArticlesUseCase({
+    Cache<List<Article>> storage,
+    ArticlesService service,
+  })  : _storage = storage ?? ArticlesStorage(),
         _service = service ?? ArticlesService();
 
-  Future<List<Article>> getArticles(Source source) {
+  Future<List<Article>> getArticles(Source source) async {
     final cachedArticle = _storage.get(source.id);
     if (cachedArticle == null) {
       return _service.getArticles(source, 1).then((articles) => _save(source.id, articles));
     } else {
-      return Future.value(cachedArticle);
+      return cachedArticle;
     }
   }
 
