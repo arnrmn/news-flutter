@@ -11,8 +11,8 @@ class ArticlesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Article>>(
-      future: NewsApi.getArticles(_source, 1),
+    return StreamBuilder<List<Article>>(
+      stream: NewsApi.getArticles(_source, 1).asStream(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return _buildNewsList(snapshot.data);
