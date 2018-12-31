@@ -12,7 +12,7 @@ class SourcesUseCase {
       : _service = service ?? const SourcesService(),
         _storage = storage ?? SourcesStorage();
 
-  Future<List<Source>> getSources() {
+  Future<List<Source>> getSources() async {
     return _storage.get(_key) ?? _service.getSources().then(_save);
   }
 
