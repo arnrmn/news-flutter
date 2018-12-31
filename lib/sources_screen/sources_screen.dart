@@ -24,8 +24,11 @@ class SourcesScreen extends StatelessWidget {
 
 class _SourcesScreen extends StatelessWidget {
   final List<Source> _sources;
+  final Source _selectedSource;
 
-  _SourcesScreen(sources) : this._sources = sources;
+  _SourcesScreen(sources)
+      : _sources = sources,
+        _selectedSource = sources.first;
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +36,7 @@ class _SourcesScreen extends StatelessWidget {
       length: _sources.length,
       child: Scaffold(
         body: NestedScrollView(
-          headerSliverBuilder: (context, isScrolled) => [
-                _getToolbar(),
-                _getTabs(),
-              ],
+          headerSliverBuilder: (_, __) => [_getToolbar()],
           body: _getBody(),
         ),
       ),
@@ -46,45 +46,14 @@ class _SourcesScreen extends StatelessWidget {
   Widget _getBody() =>
       TabBarView(children: _sources.map((source) => ArticlesList(source)).toList());
 
-  Widget _getTabs() => SliverPersistentHeader(
-        pinned: true,
-        delegate: _SliverTabBarDelegate(TabBar(
-        isScrollable: true,
-        labelColor: Colors.black87,
-        tabs: _sources.map((source) => Tab(text: source.name)).toList(),
-      )),
-      );
-
   Widget _getToolbar() => SliverAppBar(
-        expandedHeight: 200,
+        flexibleSpace: FlexibleSpaceBar(background: FlutterLogo()),
+        expandedHeight: 250,
         pinned: true,
-        flexibleSpace: FlexibleSpaceBar(
-          collapseMode: CollapseMode.parallax,
-          background: FlutterLogo(),
+        bottom: TabBar(
+          isScrollable: true,
+          labelColor: Colors.black87,
+          tabs: _sources.map((source) => Tab(text: source.name)).toList(),
         ),
       );
-}
-
-class _SliverTabBarDelegate extends SliverPersistentHeaderDelegate {
-  final TabBar _tabBar;
-
-  _SliverTabBarDelegate(this._tabBar);
-
-  @override
-  Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
-    return _tabBar;
-  }
-
-  @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => false;
-
-  @override
-  double get maxExtent => _tabBar.preferredSize.height;
-
-  @override
-  double get minExtent => _tabBar.preferredSize.height;
 }
