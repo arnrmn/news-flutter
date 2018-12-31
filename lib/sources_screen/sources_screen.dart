@@ -33,7 +33,10 @@ class _SourcesScreen extends StatelessWidget {
       length: _sources.length,
       child: Scaffold(
         body: NestedScrollView(
-          headerSliverBuilder: _getHeaderBuilder,
+          headerSliverBuilder: (context, isScrolled) => [
+                _getToolbar(),
+                _getTabs(),
+              ],
           body: _getBody(),
         ),
       ),
@@ -43,20 +46,13 @@ class _SourcesScreen extends StatelessWidget {
   Widget _getBody() =>
       TabBarView(children: _sources.map((source) => ArticlesList(source)).toList());
 
-  List<Widget> _getHeaderBuilder(context, isScroller) => [
-        _getToolbar(),
-        _getTabBarLayout(),
-      ];
-
-  Widget _getTabBarLayout() => SliverPersistentHeader(
+  Widget _getTabs() => SliverPersistentHeader(
         pinned: true,
-        delegate: _SliverTabBarDelegate(_getTabBar()),
-      );
-
-  Widget _getTabBar() => TabBar(
+        delegate: _SliverTabBarDelegate(TabBar(
         isScrollable: true,
         labelColor: Colors.black87,
         tabs: _sources.map((source) => Tab(text: source.name)).toList(),
+      )),
       );
 
   Widget _getToolbar() => SliverAppBar(
