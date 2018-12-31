@@ -1,7 +1,4 @@
 import 'package:http/http.dart' as http;
-import 'package:news_app/article.dart';
-import 'package:news_app/network/article_mapper.dart';
-import 'package:news_app/network/sources_mapper.dart';
 import 'package:news_app/sources_screen/source.dart';
 
 class NewsApi {
@@ -10,22 +7,19 @@ class NewsApi {
 
   const NewsApi();
 
-  static Future<List<Article>> getArticles(Source source, int page) async {
-    final url =
-        "$_BASE_URL/everything?sources=${source.id}&apiKey=$_KEY&page=$page";
-    final response = await http.get(url);
-    if (response.statusCode == 200) {
-      return ArticleMapper.map(response);
-    } else {
-      throw Exception("Network error: ${response.statusCode.toString()}");
-    }
+  Future<http.Response> getArticles(Source source, int page) async {
+    final url = "$_BASE_URL/everything?sources=${source.id}&apiKey=$_KEY&page=$page";
+    return _validate(await http.get(url));
   }
 
-  static Future<List<Source>> getSources() async {
+  Future<http.Response> getSources() async {
     final url = "$_BASE_URL/sources?apiKey=$_KEY";
-    final response = await http.get(url);
+    return _validate(await http.get(url));
+  }
+
+  http.Response _validate(http.Response response) {
     if (response.statusCode == 200) {
-      return SourcesMapper.map(response);
+      return response;
     } else {
       throw Exception("Network error: ${response.statusCode.toString()}");
     }

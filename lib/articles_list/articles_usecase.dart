@@ -10,11 +10,10 @@ class ArticlesUseCase {
 
   ArticlesUseCase({storage, service})
       : _storage = storage ?? ArticlesStorage(),
-        _service = service ?? ArticlesService();
+        _service = service ?? const ArticlesService();
 
   Future<List<Article>> getArticles(Source source) async {
-    final storedArticles = _storage.get(source.id);
-    return storedArticles ??
+    return _storage.get(source.id) ??
         _service.getArticles(source, 1).then((articles) => _save(source, articles));
   }
 

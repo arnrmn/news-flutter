@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/article.dart';
+import 'package:news_app/articles_list/articles_usecase.dart';
 import 'package:news_app/loading/loading_screen.dart';
-import 'package:news_app/network/news_api.dart';
 import 'package:news_app/sources_screen/source.dart';
 
 class ArticlesList extends StatelessWidget {
   final Source _source;
+  final ArticlesUseCase _useCase;
 
-  const ArticlesList(source) : _source = source;
+  ArticlesList(source, {ArticlesUseCase useCase})
+      : _source = source,
+        _useCase = useCase ?? ArticlesUseCase();
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<Article>>(
-      stream: NewsApi.getArticles(_source, 1).asStream(),
+    return FutureBuilder<List<Article>>(
+      future: _useCase.getArticles(_source),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return _buildNewsList(snapshot.data);
