@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/article.dart';
+import 'package:news_app/article/article_widget.dart';
 import 'package:news_app/articles_list/articles_usecase.dart';
 import 'package:news_app/loading/loading_screen.dart';
 import 'package:news_app/sources_screen/source.dart';
@@ -20,9 +21,7 @@ class ArticlesList extends StatelessWidget {
         if (snapshot.hasData) {
           return _buildNewsList(snapshot.data);
         } else if (snapshot.hasError) {
-          return Scaffold(
-            body: Center(child: Text("Error: ${snapshot.error.toString()}")),
-          );
+          return Scaffold(body: Center(child: Text("Error: ${snapshot.error.toString()}")));
         } else {
           return LoadingScreen();
         }
@@ -31,9 +30,6 @@ class ArticlesList extends StatelessWidget {
   }
 
   Widget _buildNewsList(List<Article> articles) {
-    return ListView.builder(
-      itemBuilder: (context, index) => Text(articles[index].title),
-      itemCount: articles.length,
-    );
+    return ArticleWidget(articles.firstWhere((article) => article.imageUrl != null));
   }
 }
