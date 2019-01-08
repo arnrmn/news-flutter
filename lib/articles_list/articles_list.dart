@@ -6,16 +6,16 @@ import 'package:news_app/sources_screen/source.dart';
 
 class ArticlesList extends StatelessWidget {
   final Source _source;
-  final ArticlesUseCase _articlesUseCase;
+  final ArticlesUseCase _useCase;
 
   ArticlesList(source, {ArticlesUseCase useCase})
       : _source = source,
-        _articlesUseCase = useCase ?? ArticlesUseCase();
+        _useCase = useCase ?? ArticlesUseCase();
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Article>>(
-      future: _articlesUseCase.getArticles(_source),
+      future: _useCase.getArticles(_source),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return _buildNewsList(snapshot.data);
