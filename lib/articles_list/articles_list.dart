@@ -4,6 +4,7 @@ import 'package:news_app/article/article_widget.dart';
 import 'package:news_app/articles_list/articles_usecase.dart';
 import 'package:news_app/loading/loading_screen.dart';
 import 'package:news_app/sources_screen/source.dart';
+import 'package:page_indicator/page_indicator.dart';
 
 class ArticlesList extends StatelessWidget {
   final Source _source;
@@ -32,12 +33,19 @@ class ArticlesList extends StatelessWidget {
   Widget _buildNewsList(List<Article> articles) {
     List<Article> articlesWithImages =
         articles.where((article) => article.imageUrl != null).toList();
-
-    return PageView.builder(
-      itemCount: articlesWithImages.length,
-      itemBuilder: (context, index) {
-        return ArticleWidget(articlesWithImages[index]);
-      },
+    PageController controller = PageController();
+    return PageIndicatorContainer(
+      length: articlesWithImages.length,
+      indicatorColor: Colors.white30,
+      indicatorSelectorColor: Colors.white,
+      size: 6,
+      pageView: PageView.builder(
+        controller: controller,
+        itemCount: articlesWithImages.length,
+        itemBuilder: (context, index) {
+          return ArticleWidget(articlesWithImages[index]);
+        },
+      ),
     );
   }
 }
