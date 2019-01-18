@@ -20,18 +20,33 @@ class ArticleWidget extends StatelessWidget {
   }
 
   Widget _background(BuildContext context) {
-    return CachedNetworkImage(
-      imageUrl: _article.imageUrl,
-      fit: BoxFit.cover,
-      height: MediaQuery.of(context).size.height,
-      fadeInDuration: Duration(milliseconds: 100),
-      fadeOutDuration: Duration(milliseconds: 100),
+    return Container(
+      foregroundDecoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Colors.black45,
+            Colors.transparent,
+            Colors.transparent,
+            Colors.black54,
+            Colors.black54,
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
+      child: CachedNetworkImage(
+        imageUrl: _article.imageUrl,
+        fit: BoxFit.cover,
+        height: MediaQuery.of(context).size.height,
+        fadeInDuration: Duration(milliseconds: 100),
+        fadeOutDuration: Duration(milliseconds: 100),
+      ),
     );
   }
 
   Widget _foreground(BuildContext context) {
     return Positioned(
-      bottom: 100,
+      bottom: 32,
       child: Container(
         width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.all(16),
@@ -45,7 +60,6 @@ class ArticleWidget extends StatelessWidget {
             SizedBox(height: 10),
             Text(
               _article.title,
-              maxLines: 3,
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 30,

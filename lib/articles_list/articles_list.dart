@@ -34,18 +34,27 @@ class ArticlesList extends StatelessWidget {
     List<Article> articlesWithImages =
         articles.where((article) => article.imageUrl != null).toList();
     PageController controller = PageController();
-    return PageIndicatorContainer(
-      length: articlesWithImages.length,
-      indicatorColor: Colors.white30,
-      indicatorSelectorColor: Colors.white,
-      size: 6,
-      pageView: PageView.builder(
-        controller: controller,
-        itemCount: articlesWithImages.length,
-        itemBuilder: (context, index) {
-          return ArticleWidget(articlesWithImages[index]);
-        },
-      ),
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        PageIndicatorContainer(
+          length: articlesWithImages.length,
+          indicatorColor: Colors.white30,
+          indicatorSelectorColor: Colors.white,
+          size: 6,
+          pageView: PageView.builder(
+            controller: controller,
+            itemCount: articlesWithImages.length,
+            itemBuilder: (context, index) {
+              return ArticleWidget(articlesWithImages[index]);
+            },
+          ),
+        ),
+        Positioned(
+          top: 40,
+          child: Text(_source.name, style: TextStyle(color: Colors.white)),
+        ),
+      ],
     );
   }
 }
