@@ -11,25 +11,47 @@ class ArticleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: double.infinity,
-      foregroundDecoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Colors.transparent, Colors.transparent, Colors.white],
-        ),
-      ),
-      decoration: BoxDecoration(
-        image: DecorationImage(
-            image: CachedNetworkImageProvider(_article.imageUrl),
-            fit: BoxFit.cover,
-            colorFilter: ColorFilter.mode(Colors.black87, BlendMode.color)),
-      ),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
-        child: Container(
-          color: Colors.white.withOpacity(0.0),
+    return Stack(
+      children: [
+        _background(context),
+        _foreground(context),
+      ],
+    );
+  }
+
+  Widget _background(BuildContext context) {
+    return CachedNetworkImage(
+      imageUrl: _article.imageUrl,
+      fit: BoxFit.cover,
+      height: MediaQuery.of(context).size.height,
+      fadeInDuration: Duration(milliseconds: 100),
+      fadeOutDuration: Duration(milliseconds: 100),
+    );
+  }
+
+  Widget _foreground(BuildContext context) {
+    return Positioned(
+      bottom: 100,
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              _article.publishTime,
+              style: TextStyle(color: Colors.white70),
+            ),
+            SizedBox(height: 10),
+            Text(
+              _article.title,
+              maxLines: 3,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 30,
+              ),
+            ),
+          ],
         ),
       ),
     );

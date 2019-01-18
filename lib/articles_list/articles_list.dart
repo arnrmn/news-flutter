@@ -30,6 +30,14 @@ class ArticlesList extends StatelessWidget {
   }
 
   Widget _buildNewsList(List<Article> articles) {
-    return ArticleWidget(articles.firstWhere((article) => article.imageUrl != null));
+    List<Article> articlesWithImages =
+        articles.where((article) => article.imageUrl != null).toList();
+
+    return PageView.builder(
+      itemCount: articlesWithImages.length,
+      itemBuilder: (context, index) {
+        return ArticleWidget(articlesWithImages[index]);
+      },
+    );
   }
 }
