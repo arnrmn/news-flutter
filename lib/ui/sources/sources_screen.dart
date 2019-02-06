@@ -5,6 +5,7 @@ import 'package:news_app/ui/source/source_screen.dart';
 import 'package:news_app/use_case/source/sources_use_case.dart';
 
 class SourcesScreen extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Source>>(

@@ -20,7 +20,8 @@ class SourceScreen extends StatelessWidget {
       future: _useCase.getArticles(_source),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return _buildNewsList(snapshot.data);
+          final articles = snapshot.data.where((article) => article.imageUrl != null).toList();
+          return _sourceScreen(articles);
         } else if (snapshot.hasError) {
           return Scaffold(body: Center(child: Text("Error: ${snapshot.error.toString()}")));
         } else {
@@ -30,23 +31,22 @@ class SourceScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildNewsList(List<Article> articles) {
-    List<Article> articlesWithImages =
-        articles.where((article) => article.imageUrl != null).toList();
+  Widget _sourceScreen(List<Article> articles) {
     PageController controller = PageController();
+
     return Stack(
       alignment: Alignment.center,
       children: [
         PageIndicatorContainer(
-          length: articlesWithImages.length,
+          length: articles.length,
           indicatorColor: Colors.white30,
           indicatorSelectorColor: Colors.white,
           size: 6,
           pageView: PageView.builder(
             controller: controller,
-            itemCount: articlesWithImages.length,
+            itemCount: articles.length,
             itemBuilder: (context, index) {
-              return ArticleWidget(articlesWithImages[index]);
+              return ArticleWidget(articles[index]);
             },
           ),
         ),
