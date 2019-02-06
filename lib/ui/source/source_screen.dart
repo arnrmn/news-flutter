@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/article.dart';
-import 'package:news_app/article/article_widget.dart';
-import 'package:news_app/articles_list/articles_usecase.dart';
-import 'package:news_app/loading/loading_screen.dart';
-import 'package:news_app/sources_screen/source.dart';
+import 'package:news_app/entity/article.dart';
+import 'package:news_app/entity/source.dart';
+import 'package:news_app/ui/article/article_preview.dart';
+import 'package:news_app/ui/loading/loading_screen.dart';
+import 'package:news_app/use_case/article/articles_usecase.dart';
 import 'package:page_indicator/page_indicator.dart';
 
-class ArticlesList extends StatelessWidget {
+class SourceScreen extends StatelessWidget {
   final Source _source;
   final ArticlesUseCase _useCase;
 
-  ArticlesList(source, {ArticlesUseCase useCase})
+  SourceScreen(source, {ArticlesUseCase useCase})
       : _source = source,
         _useCase = useCase ?? ArticlesUseCase();
 

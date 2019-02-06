@@ -1,8 +1,8 @@
-import 'package:news_app/article.dart';
-import 'package:news_app/network/article_mapper.dart';
-import 'package:news_app/network/mapper.dart';
+import 'package:news_app/entity/article.dart';
+import 'package:news_app/entity/source.dart';
+import 'package:news_app/network/mapper/article_mapper.dart';
+import 'package:news_app/network/mapper/mapper.dart';
 import 'package:news_app/network/news_api.dart';
-import 'package:news_app/sources_screen/source.dart';
 
 class ArticlesService {
   final NewsApi _api;

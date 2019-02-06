@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/articles_list/articles_list.dart';
-import 'package:news_app/loading/loading_screen.dart';
-import 'package:news_app/sources_screen/source.dart';
-import 'package:news_app/sources_screen/sources_use_case.dart';
+import 'package:news_app/entity/source.dart';
+import 'package:news_app/ui/loading/loading_screen.dart';
+import 'package:news_app/ui/source/source_screen.dart';
+import 'package:news_app/use_case/source/sources_use_case.dart';
 
 class SourcesScreen extends StatelessWidget {
   @override
@@ -29,6 +29,6 @@ class _SourcesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: ArticlesList(_sources.first));
+    return Scaffold(body: SourceScreen(_sources.first));
   }
 }

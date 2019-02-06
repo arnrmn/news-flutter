@@ -1,6 +1,6 @@
-import 'package:news_app/sources_screen/source.dart';
-import 'package:news_app/sources_screen/sources_service.dart';
-import 'package:news_app/sources_screen/sources_storage.dart';
+import 'package:news_app/entity/source.dart';
+import 'package:news_app/use_case/source/sources_service.dart';
+import 'package:news_app/use_case/source/sources_storage.dart';
 import 'package:news_app/utils/cache/cache.dart';
 
 class SourcesUseCase {

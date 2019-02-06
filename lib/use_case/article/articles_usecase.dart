@@ -1,7 +1,7 @@
-import 'package:news_app/article.dart';
-import 'package:news_app/articles_list/articles_service.dart';
-import 'package:news_app/articles_list/articles_storage.dart';
-import 'package:news_app/sources_screen/source.dart';
+import 'package:news_app/entity/article.dart';
+import 'package:news_app/entity/source.dart';
+import 'package:news_app/use_case/article/articles_service.dart';
+import 'package:news_app/use_case/article/articles_storage.dart';
 import 'package:news_app/utils/cache/cache.dart';
 
 class ArticlesUseCase {

@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:news_app/article.dart';
-import 'package:news_app/network/mapper.dart';
+import 'package:news_app/entity/article.dart';
+import 'package:news_app/network/mapper/mapper.dart';
 
 class ArticlesMapper implements ResponseMapper<List<Article>> {
   const ArticlesMapper();

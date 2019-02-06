@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import 'package:news_app/network/mapper.dart';
-import 'package:news_app/sources_screen/source.dart';
+import 'package:news_app/entity/source.dart';
+import 'package:news_app/network/mapper/mapper.dart';
 
 class SourcesMapper implements ResponseMapper<List<Source>> {
   const SourcesMapper();

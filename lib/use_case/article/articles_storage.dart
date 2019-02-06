@@ -1,4 +1,4 @@
-import 'package:news_app/article.dart';
+import 'package:news_app/entity/article.dart';
 import 'package:news_app/utils/cache/memory_cache.dart';
 
 class ArticlesStorage extends MemoryCache<List<Article>> {

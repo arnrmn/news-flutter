@@ -1,5 +1,5 @@
 import 'package:http/http.dart' as http;
-import 'package:news_app/sources_screen/source.dart';
+import 'package:news_app/entity/source.dart';
 
 class NewsApi {
   static const _KEY = "57a79eac5a8f44efa2bd3408139b83f3";
