@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/article.dart';
+import 'package:news_app/utils/formatter/date_time_formatter.dart';
 
 class ArticleWidget extends StatelessWidget {
   final Article _article;
@@ -54,7 +55,7 @@ class ArticleWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              _article.publishTime,
+              DateFormatter.format(_article.publishTime),
               style: TextStyle(color: Colors.white70),
             ),
             SizedBox(height: 10),
