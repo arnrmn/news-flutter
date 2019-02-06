@@ -23,7 +23,7 @@ class ArticleWidget extends StatelessWidget {
   Widget _background(BuildContext context) {
     return Container(
       foregroundDecoration: BoxDecoration(
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           colors: [
             Colors.black45,
             Colors.transparent,
@@ -39,8 +39,8 @@ class ArticleWidget extends StatelessWidget {
         imageUrl: _article.imageUrl,
         fit: BoxFit.cover,
         height: MediaQuery.of(context).size.height,
-        fadeInDuration: Duration(milliseconds: 100),
-        fadeOutDuration: Duration(milliseconds: 100),
+        fadeInDuration: const Duration(milliseconds: 100),
+        fadeOutDuration: const Duration(milliseconds: 100),
       ),
     );
   }
@@ -50,15 +50,15 @@ class ArticleWidget extends StatelessWidget {
       bottom: 32,
       child: Container(
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
               DateFormatter.format(_article.publishTime),
-              style: TextStyle(color: Colors.white70),
+              style: const TextStyle(color: Colors.white70),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               _article.title,
               style: const TextStyle(
