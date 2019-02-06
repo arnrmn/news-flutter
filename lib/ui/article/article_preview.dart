@@ -22,26 +22,32 @@ class ArticleWidget extends StatelessWidget {
 
   Widget _background(BuildContext context) {
     return Container(
-      foregroundDecoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [
-            Colors.black45,
-            Colors.transparent,
-            Colors.transparent,
-            Colors.black54,
-            Colors.black54,
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
-      ),
-      child: CachedNetworkImage(
-        imageUrl: _article.imageUrl,
-        fit: BoxFit.cover,
-        height: MediaQuery.of(context).size.height,
-        fadeInDuration: const Duration(milliseconds: 100),
-        fadeOutDuration: const Duration(milliseconds: 100),
-      ),
+      foregroundDecoration: BoxDecoration(gradient: _gradient()),
+      child: _image(context),
+    );
+  }
+
+  LinearGradient _gradient() {
+    return const LinearGradient(
+      colors: [
+        Colors.black45,
+        Colors.transparent,
+        Colors.transparent,
+        Colors.black54,
+        Colors.black54,
+      ],
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+    );
+  }
+
+  CachedNetworkImage _image(BuildContext context) {
+    return CachedNetworkImage(
+      imageUrl: _article.imageUrl,
+      fit: BoxFit.cover,
+      height: MediaQuery.of(context).size.height,
+      fadeInDuration: const Duration(milliseconds: 100),
+      fadeOutDuration: const Duration(milliseconds: 100),
     );
   }
 
@@ -53,22 +59,23 @@ class ArticleWidget extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              DateFormatter.format(_article.publishTime),
-              style: const TextStyle(color: Colors.white70),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              _article.title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 30,
-              ),
-            ),
-          ],
+          children: <Widget>[_dateText(), const SizedBox(height: 10), _titleText()],
         ),
       ),
+    );
+  }
+
+  Text _titleText() {
+    return Text(
+      _article.title,
+      style: const TextStyle(color: Colors.white, fontSize: 30),
+    );
+  }
+
+  Text _dateText() {
+    return Text(
+      DateFormatter.format(_article.publishTime),
+      style: const TextStyle(color: Colors.white70),
     );
   }
 }
