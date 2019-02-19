@@ -10,8 +10,9 @@ class SourceScreen extends StatelessWidget {
   final Source _source;
   final ArticlesUseCase _useCase;
 
-  SourceScreen(source, {ArticlesUseCase useCase})
-      : _source = source,
+  SourceScreen({@required Source source, ArticlesUseCase useCase})
+      : assert(source != null),
+        _source = source,
         _useCase = useCase ?? ArticlesUseCase();
 
   @override
